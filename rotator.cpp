@@ -517,6 +517,19 @@ void Rotator::rotateFrontFace90Clockwise()
 
 }
 
+void Rotator::copyCube()
+{
+    for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 3; j++) {
+            for (int k = 0; k < 3; k++) {
+                copyOfCube[i][j][k] = cube[i][j][k];
+            }
+        }
+    }
+}
+
+
+
 void Rotator::rotateRghtFace90CounterClockwise() {
     colors newCube[6][3][3];// = new colors[][][];
     //copy cube

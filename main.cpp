@@ -1,13 +1,17 @@
 #include <QCoreApplication>
 #include "cube.h"
+#include "metrics.h"
 #include "rotator.h"
 #include "seaker.h"
 #include <stdio.h>
+#include <QTime>
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
     colors testCube[6][3][3]; //= new colors[][][];
+
+    char states[13][13][13][13];
 
     {
     testCube[TOP][0][0] = YELLOW;
@@ -75,6 +79,8 @@ int main(int argc, char *argv[])
     seaker * nseaker = new seaker(testCube);
     Rotator * rotator = new Rotator(testCube);
 
+
+
     rotator->outputCube();
     printf("L'\n");
     rotator->rotateLeftFace90CounterClockwise();
@@ -108,11 +114,44 @@ int main(int argc, char *argv[])
     rotator->rotateLeftFace90CounterClockwise();
     rotator->outputCube();
 
-    printf("\n");
-    nseaker->findEdges(WHITE);
-    nseaker->output();
+    rotator->copyCube();
 
-    printf("ended");
+    //metrics * metric = new metrics(rotator->copyOfCube);
+    //printf("\n");
+    //nseaker->findEdges(WHITE);
+    //nseaker->output();
+   // metric->getMetrics();
+   // metric->output();
+    QTime timer;
+    timer.start();
+
+
+
+
+
+    for (int i = -6; i <= 6; i++) {
+        for (int j = -6; j <= 6; j++) {
+            for (int k = -6; k <= 6; k++) {
+                for (int l = -6; l <= 6; l++) {
+                    for (int m = -6; m <= 6; m++) {
+
+                             rotator->rotateLeftFace90CounterClockwise();
+                             rotator->copyCube();
+                             metrics * metric = new metrics(rotator->copyOfCube);
+                             metric->getMetrics();
+                             free(metric);
+                             //metric->output();
+
+                    }
+                }
+            }
+        }
+    }
+
+
+    int runtime = timer.elapsed(); //gets the runtime in ms
+
+    printf("%d ended",runtime);
 
 
 

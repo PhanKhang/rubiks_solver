@@ -17,9 +17,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     rotator.cpp \
-    seaker.cpp
+    seaker.cpp \
+    metrics.cpp
 
 HEADERS += \
     rotator.h \
     cube.h \
-    seaker.h
+    seaker.h \
+    metrics.h
