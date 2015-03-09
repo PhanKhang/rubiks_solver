@@ -517,6 +517,50 @@ void Rotator::rotateFrontFace90Clockwise()
 
 }
 
+void Rotator::rotationNumber(int numb)
+{
+    switch (numb) {
+        case -6:
+            rotateBackFace90Clockwise();
+            break;
+        case -5:
+            rotateBottomFace90Clockwise();
+            break;
+        case -4:
+            rotateFrontFace90Clockwise();
+            break;
+        case -3:
+            rotateLeftFace90Clockwise();
+            break;
+        case -2:
+            rotateRghtFace90Clockwise();
+            break;
+        case -1:
+            rotateTopFace90Clockwise();
+            break;
+        case 6:
+            rotateBackFace90CounterClockwise();
+            break;
+        case 5:
+            rotateBottomFace90CounterClockwise();
+            break;
+        case 4:
+            rotateFrontFace90CounterClockwise();
+            break;
+        case 3:
+            rotateLeftFace90CounterClockwise();
+            break;
+        case 2:
+            rotateRghtFace90CounterClockwise();
+            break;
+        case 1:
+            rotateTopFace90CounterClockwise();
+            break;
+        case 0:
+            break;
+    }
+}
+
 void Rotator::copyCube()
 {
     for (int i = 0; i < 6; i++) {

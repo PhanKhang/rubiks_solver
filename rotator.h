@@ -23,7 +23,7 @@ public:
     void rotateLeftFace90Clockwise();
     void rotateFrontFace90CounterClockwise();
     void rotateFrontFace90Clockwise();
-    void makeRotationAccordingtToitsNumber();
+    void rotationNumber(int numb);
     void copyCube();
 
     colors copyOfCube[6][3][3];

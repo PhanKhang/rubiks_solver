@@ -1,10 +1,16 @@
 #include <QCoreApplication>
+#include <QGlobal.h>
 #include "cube.h"
 #include "metrics.h"
 #include "rotator.h"
 #include "seaker.h"
 #include <stdio.h>
 #include <QTime>
+#include <QString>
+#include <QDebug>
+
+
+
 
 int main(int argc, char *argv[])
 {
@@ -13,7 +19,8 @@ int main(int argc, char *argv[])
 
     char states[13][13][13][13];
 
-    {
+
+
     testCube[TOP][0][0] = YELLOW;
     testCube[TOP][0][1] = YELLOW;
     testCube[TOP][0][2] = YELLOW;
@@ -73,14 +80,14 @@ int main(int argc, char *argv[])
     testCube[BOTTOM][2][0] = WHITE;
     testCube[BOTTOM][2][1] = WHITE;
     testCube[BOTTOM][2][2] = WHITE;
-    }
-
-
-    seaker * nseaker = new seaker(testCube);
-    Rotator * rotator = new Rotator(testCube);
 
 
 
+
+
+
+
+/*
     rotator->outputCube();
     printf("L'\n");
     rotator->rotateLeftFace90CounterClockwise();
@@ -115,13 +122,26 @@ int main(int argc, char *argv[])
     rotator->outputCube();
 
     rotator->copyCube();
+*/
+//random mixer
+Rotator * randomMixer = new Rotator(testCube);
+int rnd;
+for(int mix=0; mix<100; mix++){
+    rnd = qrand() % ((6 + 1) - 0) + 0;
+    randomMixer->rotationNumber(rnd - 6);
+}
+randomMixer->copyCube();
+colors mixedCube[6][3][3];
+for (int i = 0; i < 6; i++) {
+    for (int j = 0; j < 3; j++) {
+        for (int k = 0; k < 3; k++) {
+            mixedCube[i][j][k] = randomMixer->copyOfCube[i][j][k];
+        }
+    }
+}
+free(randomMixer);
 
-    //metrics * metric = new metrics(rotator->copyOfCube);
-    //printf("\n");
-    //nseaker->findEdges(WHITE);
-    //nseaker->output();
-   // metric->getMetrics();
-   // metric->output();
+/*
     QTime timer;
     timer.start();
 
@@ -134,13 +154,18 @@ int main(int argc, char *argv[])
             for (int k = -6; k <= 6; k++) {
                 for (int l = -6; l <= 6; l++) {
                     for (int m = -6; m <= 6; m++) {
-
-                             rotator->rotateLeftFace90CounterClockwise();
-                             rotator->copyCube();
-                             metrics * metric = new metrics(rotator->copyOfCube);
-                             metric->getMetrics();
-                             free(metric);
-                             //metric->output();
+                        Rotator * rotator = new Rotator(mixedCube);
+                        rotator->rotationNumber(i);
+                        rotator->rotationNumber(j);
+                        rotator->rotationNumber(k);
+                        rotator->rotationNumber(l);
+                        rotator->rotationNumber(m);
+                        rotator->copyCube();
+                        metrics * metric = new metrics(rotator->copyOfCube);
+                        metric->getMetrics();
+                        free(metric);
+                        free(rotator);
+                        //metric->output();
 
                     }
                 }
@@ -153,10 +178,43 @@ int main(int argc, char *argv[])
 
     printf("%d ended",runtime);
 
+*/
 
 
 
 
-    //rotator->outputCube();
+
+//letter mixer
+Rotator * mixer = new Rotator(testCube);
+
+QString sometext = ",-6,-5,-2,+2,+1";
+qDebug() << sometext;
+
+
+
+int pos = sometext.indexOf(",");
+while(pos+3<sometext.size()){
+    pos = sometext.indexOf(",");
+    qDebug() << sometext.mid(pos+1,2).toInt();
+    int movement = sometext.mid(pos+1,2).toInt();
+    mixer->rotationNumber(movement);
+
+
+    sometext=sometext.replace(pos,1," ");
+}
+colors mixedCube1[6][3][3];
+for (int i = 0; i < 6; i++) {
+    for (int j = 0; j < 3; j++) {
+        for (int k = 0; k < 3; k++) {
+            mixedCube1[i][j][k] = mixer->copyOfCube[i][j][k];
+        }
+    }
+}
+//printf(sometext);
+free(mixer);
+printf("ENDED");
+
+
     return a.exec();
 }
+

@@ -23,27 +23,27 @@ metrics::metrics(colors values[6][3][3] )
 void metrics::getMetrics()
 {
     seaker * seakerz = new seaker(cube);
-    int neighborLocation=0;
+    faces neighborLocation;
     for(int i = 0; i < 6; i++){
         if(cube[i][0][1] == cube[i][1][1]) {
             metric[i]++;
-            neighborLocation = seakerz->getNeighborLocation(i,0,1);
-            if (seakerz->getNeighbor(i,0,1) == cube[neighborLocation][1][1]) metric[i]++;
+            neighborLocation = seakerz->getNeighborLocation((faces)i,0,1);
+            if (seakerz->getNeighbor((faces)i,0,1) == cube[neighborLocation][1][1]) metric[i]++;
         }
         if(cube[i][1][0] == cube[i][1][1]) {
             metric[i]++;
-            neighborLocation = seakerz->getNeighborLocation(i,1,0);
-            if (seakerz->getNeighbor(i,1,0) == cube[neighborLocation][1][1]) metric[i]++;
+            neighborLocation = seakerz->getNeighborLocation((faces)i,1,0);
+            if (seakerz->getNeighbor((faces)i,1,0) == cube[neighborLocation][1][1]) metric[i]++;
         }
         if(cube[i][1][2] == cube[i][1][1]) {
             metric[i]++;
-            neighborLocation = seakerz->getNeighborLocation(i,1,2);
-            if (seakerz->getNeighbor(i,1,2) == cube[neighborLocation][1][1]) metric[i]++;
+            neighborLocation = seakerz->getNeighborLocation((faces)i,1,2);
+            if (seakerz->getNeighbor((faces)i,1,2) == cube[neighborLocation][1][1]) metric[i]++;
         }
         if(cube[i][2][1] == cube[i][1][1]) {
             metric[i]++;
-            neighborLocation = seakerz->getNeighborLocation(i,2,1);
-            if (seakerz->getNeighbor(i,2,1) == cube[neighborLocation][1][1]) metric[i]++;
+            neighborLocation = seakerz->getNeighborLocation((faces)i,2,1);
+            if (seakerz->getNeighbor((faces)i,2,1) == cube[neighborLocation][1][1]) metric[i]++;
         }
     }
 
